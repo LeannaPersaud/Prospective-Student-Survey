@@ -1,0 +1,173 @@
+<!--Author: Leanna Persaud
+Sets up the HTML format to list any existing Surveys in a tabular format.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Survey List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Imports Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!-- For custom CSS styling -->
+    <link rel="stylesheet" type="text/css" href="../../../styles.css">
+    <link rel="stylesheet" type="text/css" href="./survey-list.css">
+    </head>
+<body>
+    <div class="container-fluid main-list-box p-3 mt-5 mb-5">
+        <div id="list-div">
+            <!--States a message if no Surveys are in the database -->
+                <ng-container *ngIf="surveys.length == 0">
+                    <h1>No surveys have been created yet.</h1>
+                </ng-container>
+
+                <!--Displays the Surveys in the database in a tabular format-->
+                <ng-container *ngIf="surveys.length != 0">
+                    <table class = "table table-bordered table-responsive">
+                        <thead>
+                            <tr>
+                                <th class="row-head bg-gradient" scope="col">ID</th>
+                                <th class="row-head bg-gradient" scope="col">First Name</th>
+                                <th class="row-head bg-gradient" scope="col">Last Name</th>
+                                <th class="row-head bg-gradient" scope="col">Street Address</th>
+                                <th class="row-head bg-gradient" scope="col">City</th>
+                                <th class="row-head bg-gradient" scope="col">State</th>
+                                <th class="row-head bg-gradient" scope="col">Zipcode</th>
+                                <th class="row-head bg-gradient" scope="col">Phone Number</th>
+                                <th class="row-head bg-gradient" scope="col">Email</th>
+                                <th class="row-head bg-gradient" scope="col">Survey Date</th>
+                                <th class="row-head bg-gradient" scope="col">Most Liked Campus Aspects</th>
+                                <th class="row-head bg-gradient" scope="col">How Did They Hear About GMU</th>
+                                <th class="row-head bg-gradient" scope="col">Likelihood of Recommending GMU</th>
+                                <th class="row-head bg-gradient" scope="col">Comments</th>
+                                <th class="row-head bg-gradient" scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--If a Survey is not being edited, simply display the values of its inputs-->
+                            <tr *ngFor="let survey of surveys">
+                                <ng-container *ngIf="surveyCopy == null || surveyCopy.id != survey.id">
+                                    <th scope="row">{{survey.id}}</th>
+                                    <td>{{survey.firstName}}</td>
+                                    <td>{{survey.lastName}}</td>
+                                    <td>{{survey.street}}</td>
+                                    <td>{{survey.city}}</td>
+                                    <td>{{survey.state}}</td>
+                                    <td>{{survey.zip}}</td>
+                                    <td>{{survey.telephone}}</td>
+                                    <td>{{survey.email}}</td>
+                                    <td>{{survey.date}}</td>
+                                    <td>{{survey.liked}}</td>
+                                    <td>{{survey.interest}}</td>
+                                    <td>{{survey.likelihood}}</td>
+                                    <td>{{survey.comments}}</td>
+                                    <!--Buttons to edit or delete an individual Survey-->
+                                    <td>
+                                        <button type="button" class="btn btn-light" title="Update" (click)="editSurvey(survey)">
+                                            <i class="bi bi-pencil-square text-success"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-light" title="Delete" (click)="deleteSurvey(survey.id!)">
+                                            <i class="bi bi-trash-fill text-danger"></i>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+                            <!--Allows the user to enter inputs if a Survey is being edited/updated-->
+                                <ng-container *ngIf="surveyCopy != null && surveyCopy.id === survey.id">
+                                    <th scope="row">{{survey.id}}</th>
+                                    <!--Text inputs for the user's name, address, phone number, and email-->
+                                    <td><input type="text" class="form-control form-control-sm" name="firstName" [(ngModel)]="surveyCopy.firstName" required></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="lastName" [(ngModel)]="surveyCopy.lastName" required></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="street" [(ngModel)]="surveyCopy.street" required></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="city" [(ngModel)]="surveyCopy.city" required></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="state" [(ngModel)]="surveyCopy.state" required></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="zip" [(ngModel)]="surveyCopy.zip" required></td>
+                                    <td><input type="tel" class="form-control form-control-sm" name="telephone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                        [(ngModel)]="surveyCopy.telephone" required></td>
+                                    <td><input type="email" class="form-control" name="email" [(ngModel)]="surveyCopy.email" required ></td>
+                                    <!--Allows the user to change the date of a Survey-->
+                                    <td><input type="date" class="form-control" name="date" [(ngModel)]="surveyCopy.date" required></td>
+                                    <!--Allows the user to change the checkboxes for what they liked on campus-->
+                                    <td>
+                                        <div class="form-check">
+                                            <label for="students" class="form-check-label">Students</label>
+                                            <input id="students" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[0][0]">
+                                        </div>
+                                        <div class="form-check">
+                                            <label for="location" class="form-check-label">Location</label>
+                                            <input id="location" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[1][0]">
+                                        </div>
+                                        <div class="form-check">
+                                            <label for="campus" class="form-check-label">Campus</label>
+                                            <input id="campus" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[2][0]">
+                                        </div>
+                                        <div class="form-check">
+                                            <label for="atmosphere" class="form-check-label">Atmosphere</label>
+                                            <input id="atmosphere" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[3][0]">
+                                        </div>
+                                        <div class="form-check">
+                                            <label for="dorms" class="form-check-label">Dorm Rooms</label>
+                                            <input id="dorms" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[4][0]">
+                                        </div>
+                                        <div class="form-check">
+                                            <label for="sports" class="form-check-label">Sports</label>
+                                            <input id="sports" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[5][0]">
+                                        </div>
+                                    </td>
+                                    <!--Allows the user to change how they heard of the university-->
+                                    <td>
+                                        <div class="form-check">
+                                            <label for="friends" class="form-check-label">Friends</label>
+                                            <input id="friends" type="radio" class="form-check-input" name="interest" value="Friends" [(ngModel)]="surveyCopy.interest">
+                                        </div>
+                                        <div class="form-check">
+                                            <label for="tele" class="form-check-label">Television</label>
+                                            <input id="tele" type="radio" class="form-check-input" name="interest" value="Television" [(ngModel)]="surveyCopy.interest">
+                                        </div>
+                                        <div class="form-check">
+                                            <label for="internet" class="form-check-label">Internet</label>
+                                            <input id="internet" type="radio" class="form-check-input" name="interest" value="Internet" [(ngModel)]="surveyCopy.interest">
+                                        </div>
+                                        <div class="form-check">
+                                            <label for="other" class="form-check-label">Other</label>
+                                            <input id="other" type="radio" class="form-check-input" name="interest" value="Other" [(ngModel)]="surveyCopy.interest">
+                                        </div>
+                                    </td>
+                                    <!--Allows the user to change how likely they are to attend the school-->
+                                    <td>
+                                        <div class="mb-3">
+                                            <select id="recommend" name="recommend" class="form-select" [(ngModel)]="surveyCopy.likelihood">
+                                                <option disabled selected>Select an option</option>
+                                                <option>Very Likely</option>
+                                                <option>Likely</option>
+                                                <option>Unlikely</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <!--Allows the user to edit their additional comments-->
+                                    <td>
+                                        <div class="mb-3 ">
+                                            <textarea id="comments" class="form-control" rows="4" cols="50" [(ngModel)]="surveyCopy.comments"></textarea>
+                                        </div>
+                                    </td>
+                                    <!--Buttons for saving the updated Survey or cancelling the update-->
+                                    <td>
+                                        <button type="button" class="btn btn-light" title="Save" (click)="updateSurvey()">
+                                            <i class="bi bi-check-circle-fill text-success"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-light" title="Cancel" (click)="cancelUpdate()">
+                                            <i class="bi bi-x-circle-fill text-danger"></i>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+    </div>
+
+    <script src="./survey-list.ts"></script>
+</body>
+</html>

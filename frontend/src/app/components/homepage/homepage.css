@@ -1,0 +1,19 @@
+/*Author: Leanna Persaud
+Sets up some of the homepage-exclusive styles.
+*/
+.card-green{
+    background-color: #006633;
+    color: white;
+}
+
+.logo{
+    width: 25%;
+    max-width: 250px;
+}
+
+.form-btn-header{
+    background-color:#FFCC33;
+    color: #005229;
+    font-weight: 500;
+    box-shadow: 3px 3px 6px 1px rgb(0, 0, 0);
+}

@@ -1,0 +1,44 @@
+<!--Author: Leanna Persaud
+Sets up the HTML for the Homepage component.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Survey List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Imports Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!-- For custom CSS styling -->
+    <link rel="stylesheet" type="text/css" href="../../../styles.css">
+    <link rel="stylesheet" type="text/css" href="./homepage.css">
+    </head>
+<body>
+    <!--Creates a card with the title of the website and links to the survey and survey list.-->
+    <div class="container-fluid">
+        <div class="card card-green my-2">
+            <div class="card-body text-center">
+                <img class="img-fluid rounded-circle logo"
+                src="https://www.gmu.edu/sites/g/files/yyqcgq291/files/styles/large/public/2024-04/yt_profile_800x800-2x.jpg?itok=ozVskLRc" alt="GMU logo">
+                <h2 class="card-title text-white pt-4">Welcome to the</h2>
+                <h2 class="card-title text-white">George Mason University</h2>
+                <h2 class="card-title text-white pb-3">Prospective Student Survey</h2>
+                <ul class="list-inline py-2">
+                    <li class="list-inline-item px-5">
+                        <a routerLink="./"><button class="form-btn-header btn btn-success">Home</button></a>
+                    </li>
+                    <li class="list-inline-item px-5">
+                        <a routerLink="/survey"><button class="form-btn-header btn btn-success">Student Survey Form</button></a>
+                    </li>
+                    <li class="list-inline-item px-5">
+                        <a routerLink="/listsurveys"><button class="form-btn-header btn btn-success">List All Surveys</button></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</body>
+</html>
+

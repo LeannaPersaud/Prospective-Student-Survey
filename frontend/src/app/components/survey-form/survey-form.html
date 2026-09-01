@@ -1,0 +1,160 @@
+<!--Author: Leanna Persaud
+Sets up the formatting for the Survey form component.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>GMU CS Department Info</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Imports Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!-- For custom CSS styling -->
+    <link rel="stylesheet" type="text/css" href="../../../styles.css">
+    </head>
+<body>
+    <!-- Hold the survey form -->
+    <div id="survey" class="main-box">
+        <h2 class="gmu-style">CS Department Survey</h2>
+
+        <p><span class="required">*</span> means a field is required.</p>
+
+        <!-- Survey Form -->
+        <form id="form" autocomplete="on" #surveyForm="ngForm" (ngSubmit)="onSubmit(surveyForm)">
+            <!-- Requirement Fulfilled:  Textbox for the user's first and last name. Has a placeholder and is required-->
+            <div class="mb-3 ">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="firstName" class="form-label"><h6>First Name<span class="required">*</span></h6></label>
+                        <input id="firstName" type="text" class="form-control" name="firstName" placeholder="Enter first name here" [(ngModel)]="survey.firstName" required autofocus>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="lastName" class="form-label"><h6>Last Name<span class="required">*</span></h6></label>
+                        <input id="lastName" type="text" class="form-control" name="lastName" placeholder="Enter last name here" [(ngModel)]="survey.lastName" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requirement Fulfilled:  Textboxes for street address, city, state, and zip. Have placeholders and are all required-->
+            <div class="mb-3 ">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="street" class="form-label"><h6>Street Address<span class="required">*</span></h6></label>
+                        <input id="street" type="text" class="form-control" name="street" placeholder="Enter street address here" [(ngModel)]="survey.street" required>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="city" class="form-label"><h6>City<span class="required">*</span></h6></label>
+                        <input id="city" type="text" class="form-control" name="city" placeholder="Enter city here" [(ngModel)]="survey.city" required>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="state" class="form-label"><h6>State<span class="required">*</span></h6></label>
+                        <input id="state" type="text" class="form-control" name="state" placeholder="Enter state here" [(ngModel)]="survey.state" required>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="zip" class="form-label"><h6>Zipcode<span class="required">*</span></h6></label>
+                        <input id="zip" type="text" class="form-control" name="zip" placeholder="Enter zipcode here" [(ngModel)]="survey.zip" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requirement Fulfilled: Telephone type for telephone number. Has a placeholder for required format and is required-->
+            <div class="mb-3 ">
+                <label for="telephone" class="form-label"><h6>Telephone Number<span class="required">*</span></h6></label>
+                <input id="telephone" type="tel" class="form-control" name="telephone" placeholder="###-###-####" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                [(ngModel)]="survey.telephone" required>
+            </div>
+
+            <!-- Requirement Fulfilled:  Email type for email. Has a placeholder for required format. Also required-->
+            <div class="mb-3 ">
+                <label for="email" class="form-label"><h6>Email<span class="required">*</span></h6></label>
+                <input id="email" type="email" class="form-control" name="email" placeholder="name@domain.com" [(ngModel)]="survey.email" required>
+            </div>
+
+            <!-- Requirement Fulfilled:  Date type for the date of survey. Is required-->
+            <div class="mb-3 ">
+                <label for="date" class="form-label"><h6>Date of Survey<span class="required">*</span></h6></label>
+                <input id="date" type="date" class="form-control" name="date" [(ngModel)]="survey.date" required>
+            </div>
+            <hr>
+
+            <!-- Requirement Fulfilled:  Checkboxes for what the prospective student liked most about the campus. Includes the following options:
+             students, location, campus, atmosphere, dorm rooms, and sports-->
+            <h6>What Did You Like Most About Campus?</h6>
+            <div class="form-check">
+                <label for="students" class="form-check-label">Students</label>
+                <input id="students" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[0][0]">
+            </div>
+            <div class="form-check">
+                <label for="location" class="form-check-label">Location</label>
+                <input id="location" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[1][0]">
+            </div>
+            <div class="form-check">
+                <label for="campus" class="form-check-label">Campus</label>
+                <input id="campus" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[2][0]">
+            </div>
+            <div class="form-check">
+                <label for="atmosphere" class="form-check-label">Atmosphere</label>
+                <input id="atmosphere" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[3][0]">
+            </div>
+            <div class="form-check">
+                <label for="dorms" class="form-check-label">Dorm Rooms</label>
+                <input id="dorms" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[4][0]">
+            </div>
+            <div class="form-check">
+                <label for="sports" class="form-check-label">Sports</label>
+                <input id="sports" type="checkbox" class="form-check-input" name="liked" [(ngModel)]="checkedBoxes[5][0]">
+            </div>
+            <hr>
+
+            <!-- Requirement Fulfilled:  Radio buttons for how the prospective student became interested in the university. Includes the following
+             options: friends, television, Internet, and other-->
+            <h6>How Did You Become Interested in GMU?</h6>
+            <div class="form-check">
+                <label for="friends" class="form-check-label">Friends</label>
+                <input id="friends" type="radio" class="form-check-input" name="interest" value="Friends" [(ngModel)]="survey.interest">
+            </div>
+            <div class="form-check">
+                <label for="tele" class="form-check-label">Television</label>
+                <input id="tele" type="radio" class="form-check-input" name="interest" value="Television" [(ngModel)]="survey.interest">
+            </div>
+            <div class="form-check">
+                <label for="internet" class="form-check-label">Internet</label>
+                <input id="internet" type="radio" class="form-check-input" name="interest" value="Internet" [(ngModel)]="survey.interest">
+            </div>
+            <div class="form-check">
+                <label for="other" class="form-check-label">Other</label>
+                <input id="other" type="radio" class="form-check-input" name="interest" value="Other" [(ngModel)]="survey.interest">
+            </div>
+            <hr>
+
+            <!-- Requirement Fulfilled: Dropdown list for user to select how likely they are to recommend this school to other prospective students.
+             Options include Very Likely, Likely, Unlikely -->
+            <div class="mb-3">
+                <label for="recommend" class="form-label"><h6>How Likely Are You to Recommend GMU to Other Prospective Students?</h6></label>
+                <select id="recommend" name="recommend" class="form-select" [(ngModel)]="survey.likelihood">
+                    <option disabled selected>Select an option</option>
+                    <option>Very Likely</option>
+                    <option>Likely</option>
+                    <option>Unlikely</option>
+                </select>
+            </div>
+            <hr>
+
+            <!-- Requirement Fulfilled: A text area for additional comments -->
+            <div class="mb-3 ">
+                <label for="comments" class="form-label"><h6>Additional Comments</h6></label>
+                <textarea id="comments" class="form-control" name="comments" rows="4" cols="50" [(ngModel)]="survey.comments"></textarea>
+            </div>
+
+            <!-- Requirement Fulfilled:  The submit button and the cancel button-->
+            <div class="mb-3 ">
+                <button c="submit-btn" type="submit" class="btn btn-info form-btn">Submit</button>
+                <button id="cancel-btn" type="reset" class="btn btn-info form-btn" (click)="onCancel(surveyForm)">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

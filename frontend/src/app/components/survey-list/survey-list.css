@@ -1,0 +1,21 @@
+/*Author: Leanna Persaud
+This stylesheet provides custom CSS styles to the page containing the list of completed surveys.
+*/
+
+#list-div{
+    overflow: auto;
+}
+
+.row-head{
+    color: #014724 !important;
+    background-color: #60bb91 !important;
+    font-weight:550;
+    border-color:#006633;
+    overflow: auto;
+    min-width: 150px;
+}
+
+.main-list-box{
+    background-color: white;
+    border-radius: 10px;
+}
